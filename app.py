@@ -11,7 +11,7 @@ def index():
     sentence_size = 20
     sentence_list = list()
     text = 'book.txt'
-    for i in range(0, sentence_size):
+    for _ in range(0, sentence_size):
         sentence_list.append(main_sample(text))
     sentence_str = " ".join(sentence_list)
     return render_template('base.html', sentence=sentence_str)
