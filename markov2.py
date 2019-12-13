@@ -48,13 +48,6 @@ class MarkovChain(dict):
             key = (key[1], word)
         
         return sentence
-            
-
-
-
-
-    
-        
 
 def run_generator():
 
@@ -63,14 +56,6 @@ def run_generator():
 
 
     return(markov_chain.sentence(word_list, 60))
-
-
-        
-        
-    
-
-
-
 
 if __name__ == "__main__":
     print(run_generator())
