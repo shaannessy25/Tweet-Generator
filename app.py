@@ -3,27 +3,32 @@ from sample import main_sample
 from histogram import histogram_dict
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import markov2
+from markov2 import run_generator
 import dictogram
 import os
 
 app = Flask(__name__)
 
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/create-lryic-gen')
-client = MongoClient(host=f'{host}?retryWrites=false')
-db = client.get_default_database()
-lyric = db['lyric']
+# host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/sentence-generator')
+# client = MongoClient(host=f'{host}?retryWrites=false')
+# db = client.get_default_database()
+# sentence = db['sentence']
+
+# @app.route('/')
+# def index():
+#     """Return Homepage"""
+#     sentence_list = {
+#         'sentence' : run_generator()
+#     }
+#     sentence_id = sentence.insert_one(sentence_list).inserted_id
+#     sentence_text = sentence.find_one({'_id': ObjectId(sentence_id)})['sentence']  
+#     return render_template('base.html', sentence_id = sentence_id, sentence_text = sentence_text)
+
 
 @app.route('/')
 def index():
-    """Return Homepage"""
-    lyric_list = {
-        'lyric' : markov2.run_generator()
-    }
-    lyric_id = lyric.insert_one(lyric_list).inserted_id
-    lyric_text = lyric.find_one({'_id': ObjectId(lyric_id)})['lyric']  
-    return render_template('base.html', lyric_id = lyric_id, lyric_text = lyric_text)
-
+    sentence_text = run_generator()
+    return render_template('base.html', sentence_text=sentence_text)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
