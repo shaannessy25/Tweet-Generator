@@ -3,7 +3,7 @@ from sample import main_sample
 from histogram import histogram_dict
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-import 2nd_order_markovchain
+import markov2
 import dictogram
 import os
 
@@ -15,10 +15,10 @@ db = client.get_default_database()
 lyric = db['lyric']
 
 @app.route('/')
-def index():``
+def index():
     """Return Homepage"""
     lyric_list = {
-        'lyric' : markov_2nd_order.run_generator()
+        'lyric' : markov2.run_generator()
     }
     lyric_id = lyric.insert_one(lyric_list).inserted_id
     lyric_text = lyric.find_one({'_id': ObjectId(lyric_id)})['lyric']  
